@@ -1,0 +1,27 @@
+# Runs on the home server. Watch the browser at http://<TAILSCALE_IP>:6082/vnc.html
+services:
+  agent:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      QUICK_TUNNEL: http://tunnel:2000
+      DATA_DIR: /app/data
+      PYTHONUNBUFFERED: "1"
+    volumes:
+      - ./data:/app/data
+    ports:
+      # Tailscale only. 6080 and 6081 are the other agents' browsers.
+      - "${TAILSCALE_IP}:6082:6080"
+      # Download links. Localhost only: the Cloudflare tunnel (host network) publishes it.
+      - "127.0.0.1:8092:8080"
+    shm_size: 1g
+    mem_limit: 2g
+
+  # Publishes the download-link server at a random https://*.trycloudflare.com address (the
+  # account has no domain for a named route). The agent asks it for the address on its
+  # metrics port; the address changes if this container restarts.
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    command: tunnel --no-autoupdate --metrics 0.0.0.0:2000 --url http://agent:8080
