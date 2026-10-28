@@ -2,8 +2,11 @@
 
 Hey Senpilot recruiters,
 
-I didn't mention how I worked on this in the video, so here it is. These are the steps I took to
-get the best project I could out of the 3 hours.
+I didn't mention the agentic approach I took to this project in my video submission. I  used
+claude code on the terminal with 5 agents working on different aspects of the submission that
+I planned out myself with chatgpt as help. Once I had the first version done, I was able to make 
+adjustments and a lot of bug fixes to ensure it was usable within the 3 hour limit. These are the 
+steps I took to get the best project I could out of the 3 hours.
 
 Try the agent: email **itsaaravmodi+uarb@gmail.com**, for example "Can you send me the exhibits
 for M12205?". It replies with the documents, zipped, usually within a few minutes.
